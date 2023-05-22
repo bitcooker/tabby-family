@@ -11,9 +11,81 @@ datasource db {
 }
 
 model Announcement {
-  id         Int       @id @default(autoincrement())
+  id         String    @id @default(uuid())
   title      String
   content    String?   @db.Text
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  deleted_at DateTime?
+}
+
+model Role {
+  id         String     @id @default(uuid())
+  role_name  String
+  employees  Employee[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  deleted_at DateTime?
+}
+
+model Manager {
+  id         String     @id @default(uuid())
+  name       String
+  employees  Employee[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  deleted_at DateTime?
+}
+
+model Location {
+  id         String    @id @default(uuid())
+  name       String
+  lat        Float
+  lng        Float
+  offices    Office[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  deleted_at DateTime?
+}
+
+model Office {
+  id         String     @id @default(uuid())
+  name       String
+  employees  Employee[]
+  location   Location   @relation(fields: [locationId], references: [id])
+  locationId String
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  deleted_at DateTime?
+}
+
+model Pronoun {
+  id         String     @id @default(uuid())
+  name       String
+  employees  Employee[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  deleted_at DateTime?
+}
+
+model Employee {
+  id         String    @id @default(uuid())
+  name       String
+  email      String    @unique
+  dob        DateTime
+  slack      String    @unique
+  twitter    String    @unique
+  avatar     String    @default("")
+  joined_at  DateTime
+  bio        String    @db.Text
+  role       Role      @relation(fields: [roleId], references: [id])
+  manager    Manager   @relation(fields: [managerId], references: [id])
+  office     Office    @relation(fields: [officeId], references: [id])
+  pronoun    Pronoun   @relation(fields: [pronounId], references: [id])
+  roleId     String
+  managerId  String
+  officeId   String
+  pronounId  String
   created_at DateTime  @default(now())
   updated_at DateTime  @default(now())
   deleted_at DateTime?
