@@ -11,10 +11,10 @@ datasource db {
 }
 
 model Announcement {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   title      String
-  content    String?
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-  deleted_at DateTime
+  content    String?   @db.Text
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  deleted_at DateTime?
 }
