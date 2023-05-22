@@ -5,5 +5,5 @@ interface EmployeesLayoutProps {
 }
 
 export default function EmployeesLayout({ children }: EmployeesLayoutProps) {
-  return <>{children}</>
+  return <div className="max-w-screen-xl mx-auto">{children}</div>
 }
