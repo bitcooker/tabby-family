@@ -20,9 +20,7 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <Link href={`/announcement/${id}`}>
-        <h3 className="cursor-pointer">{title}</h3>
-      </Link>
+      <h3 className="cursor-pointer">{title}</h3>
       <p className="text-xs truncate opacity-80">{content}</p>
     </div>
   )

@@ -40,7 +40,7 @@ export default function Employee() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-screen italic">
+      <div className="flex items-center justify-center w-full h-screen italic text-xl">
         Loading...
       </div>
     )
@@ -49,7 +49,7 @@ export default function Employee() {
   return (
     <div className="flex flex-col mt-5">
       {/* Top Section */}
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-5">
         <EmployeeCardX
           id={employee?.id ?? ''}
           name={employee?.name ?? ''}
@@ -57,46 +57,49 @@ export default function Employee() {
           avatar={employee?.avatar ?? ''}
           bio={employee?.bio ?? ''}
           role={employee?.role.role_name ?? ''}
+          className="shadow-md col-span-1"
         />
-        <div className="flex justify-center">
-          <Calendar />
-        </div>
-        <div className="flex flex-col p-10 space-y-4 text-sm bg-white rounded-lg shadow h-fit">
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Manager </span>
-            <span className="">{employee?.manager.name}</span>
+        <div className="col-span-2 grid grid-cols-1 lg:grid-cols-1">
+          <div className="flex">
+            <Calendar />
           </div>
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Email </span>
-            <span className="">{employee?.email}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Slack </span>
-            <span className="">{employee?.slack}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Twiiter </span>
-            <span className="">{employee?.twitter}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Office </span>
-            <span className="">{employee?.office.name}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Birthday </span>
-            <span className="">
-              {new Date(employee?.dob ?? '').toDateString()}
-            </span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Pronouns </span>
-            <span className="">{employee?.pronoun.name}</span>
-          </div>
-          <div className="flex items-center">
-            <span className="w-1/3 text-gray-500">Joined </span>
-            <span className="">
-              {new Date(employee?.joined_at ?? '').toDateString()}
-            </span>
+          <div className="flex flex-col p-10 space-y-4 text-md bg-white rounded-lg shadow-md h-fit">
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Manager </span>
+              <span className="">{employee?.manager.name}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Email </span>
+              <span className="">{employee?.email}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Slack </span>
+              <span className="">{employee?.slack}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Twiiter </span>
+              <span className="">{employee?.twitter}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Office </span>
+              <span className="">{employee?.office.name}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Birthday </span>
+              <span className="">
+                {new Date(employee?.dob ?? '').toDateString()}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Pronouns </span>
+              <span className="">{employee?.pronoun.name}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="w-1/3 text-gray-500">Joined </span>
+              <span className="">
+                {new Date(employee?.joined_at ?? '').toDateString()}
+              </span>
+            </div>
           </div>
         </div>
       </div>

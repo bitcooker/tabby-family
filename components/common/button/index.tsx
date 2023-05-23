@@ -4,7 +4,7 @@ interface ButtonProps {
   schema: 'cyan' | 'teal' | 'purple' | 'orange'
   children: React.ReactNode
   className?: string
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent) => void
 }
 
 const colors = {
