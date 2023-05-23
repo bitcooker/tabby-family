@@ -2,7 +2,14 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Calendar, Button, AnnouncementCard, EmployeeCard } from '@/components'
+import {
+  Calendar,
+  Button,
+  AnnouncementCard,
+  EmployeeCard,
+  EmployeeAddCard,
+  SearchBar,
+} from '@/components'
 import type { Announcement, Employee, Role } from '@prisma/client'
 
 type EmployeeAndRole = Employee & { role: Role }
@@ -103,17 +110,20 @@ export default function Employees() {
         </h3>
 
         <div className="grid grid-cols-3 gap-5">
-          {employees?.map((employee) => (
-            <Link key={employee.id} href={`employee/${employee.id}`}>
-              <EmployeeCard
-                name={employee.name}
-                role={employee.role.role_name}
-                email={employee.email}
-                avatar={employee.avatar}
-                joined_at={employee.joined_at}
-              />
-            </Link>
-          ))}
+          {employees?.map(
+            (employee, index) =>
+              (index == 0 && <EmployeeAddCard key={-100} />) || (
+                <Link key={employee.id} href={`employee/${employee.id}`}>
+                  <EmployeeCard
+                    name={employee.name}
+                    role={employee.role.role_name}
+                    email={employee.email}
+                    avatar={employee.avatar}
+                    joined_at={employee.joined_at}
+                  />
+                </Link>
+              )
+          )}
         </div>
       </div>
     </div>

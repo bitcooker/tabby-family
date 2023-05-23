@@ -32,7 +32,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   announcements,
 }) => {
   return (
-    <div className="flex flex-col p-5 -mb-5 space-y-5 overflow-y-auto text-white rounded bg-sky-500 max-h-96">
+    <div className="flex flex-col p-5 -mb-5 space-y-5 overflow-y-auto text-white rounded bg-sky-500 max-h-96 shadow-md">
       <h1 className="text-xl font-bold text-center">Announcements</h1>
 
       <div className="flex flex-col space-y-2">

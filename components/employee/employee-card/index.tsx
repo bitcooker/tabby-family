@@ -20,7 +20,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = ({
   joined_at,
 }) => {
   return (
-    <div className="flex justify-between p-5 bg-white rounded-md cursor-pointer hover:animate-app-bounce">
+    <div className="flex justify-between p-5 bg-white rounded-md cursor-pointer hover:animate-app-bounce shadow-md">
       <div className="flex flex-col justify-around">
         <h2 className="text-lg">{name}</h2>
         <div className="flex flex-col space-y-2">
