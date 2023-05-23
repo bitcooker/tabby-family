@@ -125,6 +125,7 @@ const EmployeeAddCard: React.FC = () => {
   })
 
   const handleSubmit = async () => {
+    setIsOpen(false)
     const res = await fetch('http://localhost:3000/api/employee/add', {
       method: 'POST',
       headers: {

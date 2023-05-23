@@ -94,12 +94,6 @@ const EmployeeCardX: React.FC<EmployeeCardXProps> = ({
   const closeModal = (e: React.MouseEvent) => {
     e.stopPropagation()
     setIsOpen(false)
-    setEmployeeData({
-      name,
-      email,
-      bio,
-      roleId,
-    })
   }
 
   const ref = useDetectClickOutside({
@@ -107,14 +101,14 @@ const EmployeeCardX: React.FC<EmployeeCardXProps> = ({
   })
 
   const handleDelete = async () => {
-    const res = await (
-      await fetch(`http://localhost:3000/api/employee/delete/${id}`)
-    ).json()
+    try {
+      const res = await (
+        await fetch(`http://localhost:3000/api/employee/${id}/del`)
+      ).json()
 
-    if (res.ok) {
       console.log('Task created successfully!')
-      window.location.href = '/employee'
-    } else {
+      window.location.href = 'http://localhost:3000/employee'
+    } catch {
       console.error('Something went wrong.')
     }
   }
@@ -246,7 +240,11 @@ const EmployeeCardX: React.FC<EmployeeCardXProps> = ({
                     >
                       {roles &&
                         roles.map((role) => (
-                          <option key={role.id} value={role.id}>
+                          <option
+                            key={role.id}
+                            selected={role.id == employeeData.roleId}
+                            value={role.id}
+                          >
                             {role.role_name}
                           </option>
                         ))}
