@@ -113,6 +113,7 @@ const EmployeeCardX: React.FC<EmployeeCardXProps> = ({
 
     if (res.ok) {
       console.log('Task created successfully!')
+      window.location.href = '/employee'
     } else {
       console.error('Something went wrong.')
     }
@@ -134,6 +135,8 @@ const EmployeeCardX: React.FC<EmployeeCardXProps> = ({
     } else {
       console.error('Something went wrong.')
     }
+    window.location.href = `http://localhost:3000/employee/${id}`
+    setIsOpen(false)
   }
 
   return (

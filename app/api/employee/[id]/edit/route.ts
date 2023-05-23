@@ -35,7 +35,7 @@ export async function POST(
     })
 
     console.log(employee)
-    return NextResponse.json({ msg: 'success' }, { status: 200 })
+    return NextResponse.json({ employee }, { status: 200 })
   } catch (e) {
     return NextResponse.json({ e }, { status: 404 })
   }
