@@ -5,10 +5,5 @@ interface EmployeeLayoutProps {
 }
 
 export default function EmployeeLayout({ children }: EmployeeLayoutProps) {
-  return (
-    <>
-      Employee Layout
-      {children}
-    </>
-  )
+  return <>{children}</>
 }

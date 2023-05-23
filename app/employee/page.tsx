@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Calendar, Button, AnnouncementCard, EmployeeCard } from '@/components'
 import type { Announcement, Employee, Role } from '@prisma/client'
@@ -41,11 +43,38 @@ const getAllEmployees = async () => {
   return employees
 }
 
-export default async function Employees() {
-  const announcements = await getAnnouncements()
-  const randomEmployee = await getRandomEmployee()
-  const employeesCount = await getEmployeesCount()
-  const employees = await getAllEmployees()
+export default function Employees() {
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [randomEmployee, setRandomEmployee] = useState<EmployeeAndRole>()
+  const [employeesCount, setEmployeesCount] = useState<number>(0)
+  const [employees, setEmployees] = useState<EmployeeAndRole[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    const load = async () => {
+      const announcements = await getAnnouncements()
+      const randomEmployee = await getRandomEmployee()
+      const employeesCount = await getEmployeesCount()
+      const employees = await getAllEmployees()
+
+      setAnnouncements(announcements)
+      setRandomEmployee(randomEmployee)
+      setEmployeesCount(employeesCount)
+      setEmployees(employees)
+
+      setLoading(false)
+    }
+
+    load()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center w-full h-screen italic">
+        Loading...
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col mt-5">
@@ -57,11 +86,11 @@ export default async function Employees() {
         </div>
         <div className="flex flex-col space-y-3">
           <EmployeeCard
-            name={randomEmployee?.name}
-            role={randomEmployee?.role.role_name}
-            email={randomEmployee?.email}
-            avatar={randomEmployee?.avatar}
-            joined_at={randomEmployee?.joined_at}
+            name={randomEmployee?.name ?? ''}
+            role={randomEmployee?.role.role_name ?? ''}
+            email={randomEmployee?.email ?? ''}
+            avatar={randomEmployee?.avatar ?? ''}
+            joined_at={randomEmployee?.joined_at ?? new Date()}
           />
         </div>
       </div>

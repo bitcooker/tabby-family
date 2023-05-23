@@ -15,7 +15,7 @@ const colors = {
 const Button: React.FC<ButtonProps> = ({ schema, children }) => {
   return (
     <div
-      className={`inline-flex items-center px-2 text-sm h-10 text-white rounded-md transition cursor-pointer whitespace-nowrap ${colors[schema]}`}
+      className={`inline-flex w-fit items-center px-2 text-sm h-10 text-white rounded-md transition cursor-pointer whitespace-nowrap ${colors[schema]}`}
     >
       {children}
     </div>
