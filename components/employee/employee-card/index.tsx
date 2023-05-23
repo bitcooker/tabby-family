@@ -27,7 +27,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = ({
           <Badge content={role} color="teal" />
           <span className="text-sm text-gray-500">{email}</span>
           <span className="text-xs italic">
-            Joined on {joined_at.toDateString()}
+            Joined on {new Date(joined_at).toDateString()}
           </span>
         </div>
       </div>

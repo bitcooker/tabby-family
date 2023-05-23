@@ -1,42 +1,44 @@
 import React from 'react'
 import Link from 'next/link'
-import prisma from '@/lib/prisma'
 import { Calendar, Button, AnnouncementCard, EmployeeCard } from '@/components'
+import type { Announcement, Employee, Role } from '@prisma/client'
+
+type EmployeeAndRole = Employee & { role: Role }
 
 const getAnnouncements = async () => {
-  return await prisma.announcement.findMany({
-    take: 5,
-    orderBy: {
-      created_at: 'asc',
-    },
-  })
+  let response = await (
+    await fetch('http://localhost:3000/api/announcement')
+  ).json()
+
+  const announcements: Announcement[] = response.announcements
+  return announcements
 }
 
 const getEmployeesCount = async () => {
-  return await prisma.employee.count()
+  let response = await (
+    await fetch('http://localhost:3000/api/employee/count')
+  ).json()
+
+  const count: number = response.count
+  return count
 }
 
 const getRandomEmployee = async () => {
-  const employeesCount = await prisma.employee.count()
-  const skip = Math.floor(Math.random() * employeesCount)
+  let response = await (
+    await fetch('http://localhost:3000/api/employee/random')
+  ).json()
 
-  const employee = await prisma.employee.findMany({
-    take: 1,
-    skip: skip,
-    include: {
-      role: true,
-    },
-  })
-
-  return employee[0]
+  const employee: EmployeeAndRole = response.employee
+  return employee
 }
 
 const getAllEmployees = async () => {
-  return await prisma.employee.findMany({
-    include: {
-      role: true,
-    },
-  })
+  let response = await (
+    await fetch('http://localhost:3000/api/employee')
+  ).json()
+
+  const employees: EmployeeAndRole[] = response.employees
+  return employees
 }
 
 export default async function Employees() {
