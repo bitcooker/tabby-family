@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
 import { faker } from '@faker-js/faker'
 
-interface employeeDataType {
+interface EmployeeDataType {
   name: string
   email: string
   dob: string
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       managerId,
       officeId,
       pronounId,
-    }: employeeDataType = body
+    }: EmployeeDataType = body
 
     const employee = await prisma.employee.create({
       data: {

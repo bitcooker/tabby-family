@@ -12,6 +12,8 @@ import {
 } from '@/components'
 import type { Announcement, Employee, Role } from '@prisma/client'
 
+import { AiOutlineSearch } from 'react-icons/ai'
+
 type EmployeeAndRole = Employee & { role: Role }
 
 const getAnnouncements = async () => {
@@ -50,12 +52,23 @@ const getAllEmployees = async () => {
   return employees
 }
 
+const getFilterEmployees = async (filterText: string) => {
+  let response = await (
+    await fetch(`http://localhost:3000/api/employee/filter/${filterText}`)
+  ).json()
+
+  const employees: EmployeeAndRole[] = response.employees
+  return employees
+}
+
 export default function Employees() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [randomEmployee, setRandomEmployee] = useState<EmployeeAndRole>()
   const [employeesCount, setEmployeesCount] = useState<number>(0)
   const [employees, setEmployees] = useState<EmployeeAndRole[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const [filterText, setFilterText] = useState<string>('')
+  const [isFiltering, setIsFiltering] = useState<boolean>(false)
 
   useEffect(() => {
     const load = async () => {
@@ -75,9 +88,29 @@ export default function Employees() {
     load()
   }, [])
 
+  const handleSearch = async () => {
+    if (filterText) {
+      setIsFiltering(true)
+      const employees = await getFilterEmployees(filterText)
+      setEmployees(employees)
+    } else {
+      const employees = await getAllEmployees()
+      setEmployees(employees)
+      setIsFiltering(false)
+    }
+  }
+
+  const handleEnterKeyPressed = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.keyCode == 13) {
+      handleSearch()
+    }
+  }
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-screen italic">
+      <div className="flex items-center justify-center w-full h-screen italic text-xl">
         Loading...
       </div>
     )
@@ -108,11 +141,25 @@ export default function Employees() {
           Yay! {employeesCount} Tabbys recently joined{' '}
           <Button schema="teal">Get to know us!</Button>
         </h3>
-
+        {/* search bar */}
+        <div className="flex items-center justify-center">
+          <SearchBar
+            className="w-1/2"
+            placeholder="Search by Name"
+            value={filterText}
+            onChange={(e) => setFilterText(e.target.value)}
+            onKeyDown={handleEnterKeyPressed}
+          />
+          <Button schema="teal" onClick={handleSearch}>
+            <AiOutlineSearch size={'30px'} />
+          </Button>
+        </div>
         <div className="grid grid-cols-3 gap-5">
           {employees?.map(
             (employee, index) =>
-              (index == 0 && <EmployeeAddCard key={-100} />) || (
+              (index == 0 && !isFiltering && (
+                <EmployeeAddCard key={-100} />
+              )) || (
                 <Link key={employee.id} href={`employee/${employee.id}`}>
                   <EmployeeCard
                     name={employee.name}
