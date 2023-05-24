@@ -1,34 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This app is a tiny part of ERP system of TABBY ML built by `Next v13.4(latest version)` & `Tailwind CSS`.
 
-## Getting Started
+## Core functionalities
 
-First, run the development server:
+1. Display all employees
+2. Implement dynamic routings to display each one
+3. Implement `ADD` `EDIT` `DELETE` features
+4. Filter by name feature
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## How to install and run app locally
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. prerequests
+   - you should install node v16 or higher
+   - you should install mysql server locally
+2. setup
+   - you should get a copy of `.env.example`. please run `cp .env.example .env`
+   - then you should set the `DATABASE_URL` env with your local mysql config values. `e.g. DATABASE_URL="mysql://root:password@localhost:3306/tabby"`
+   - you should just install node modules. please run `npm i` or `yarn install`
+   - and then you might want to migrate the database and proceed seeding. like this `npx prisma migrate dev` and then `npx prisma db seed`
+   - then you just run `npm run dev` or `yarn dev` and just visit `http://localhost:3000` Yay! there we go!!!
+## Database Achitecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- you might want to take a look at this file... `/prisma/schema.prisma`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+If you have any questions and find any problems, just come up with them.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Thanks
